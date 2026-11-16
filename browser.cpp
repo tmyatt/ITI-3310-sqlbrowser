@@ -15,8 +15,6 @@
 #include <QSqlRecord>
 #include <QTextEdit>
 #include <QTimer>
-//TSM:
-#include <QDebug>
 
 Browser::Browser(QWidget *parent)
     : QWidget(parent)
@@ -67,8 +65,6 @@ Browser::~Browser()
 void Browser::exec()
 {
     QSqlQueryModel *model = new QSqlQueryModel(m_ui->table);
-    //TSM:
-    qInfo() << QString(m_ui->sqlEdit->toPlainText());
     model->setQuery(QSqlQuery(m_ui->sqlEdit->toPlainText(), m_ui->connectionWidget->currentDatabase()));
     m_ui->table->setModel(model);
 
@@ -93,13 +89,6 @@ QSqlError Browser::addConnection(const QString &driver, const QString &dbName, c
     db.setDatabaseName(dbName);
     db.setHostName(host);
     db.setPort(port);
-    //TSM:
-    qInfo() << driver;
-    qInfo() << dbName;
-    qInfo() << host;
-    qInfo() << user;
-    qInfo() << passwd;
-    qInfo() << port;
     if (!db.open(user, passwd)) {
         err = db.lastError();
         db = QSqlDatabase();
@@ -235,7 +224,6 @@ void Browser::deleteRow()
         if (idx.column() != 0)
             continue;
         model->removeRow(idx.row());
-        updateActions();
     }
 
     updateActions();

@@ -53,7 +53,6 @@ void ConnectionWidget::refresh()
     bool gotActiveDb = false;
     for (const auto &connectionName : connectionNames) {
         QTreeWidgetItem *root = new QTreeWidgetItem(tree);
-
         QSqlDatabase db = QSqlDatabase::database(connectionName, false);
         root->setText(0, qDBCaption(db));
         if (connectionName == activeDb) {
@@ -128,4 +127,3 @@ void ConnectionWidget::onCurrentItemChanged(QTreeWidgetItem *current)
 {
     metaDataAction->setEnabled(current && current->parent());
 }
-
