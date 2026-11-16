@@ -67,5 +67,4 @@ public:
         return QSqlTableModel::data(idx, role);
     }
 };
-
 #endif
